@@ -67,7 +67,6 @@ class Search
     x, y = state.x, state.y
     @expansions[y][x] = @expansion_time
     @expansion_time += 1
-    print @expansion_time.to_s + " "
   end
  
   def expansions
@@ -198,15 +197,17 @@ class Search
     end
   end
       
-  
+
   def rbfs(problem) # returns a solution, or failure return
+    @explored = {}
     rbfs_recursive(problem, Node.new(nil, nil, problem.initial_state), infinity)
   end
   
   def rbfs_recursive(problem, node, f_limit) # returns a solution, or failure
     return solution(node) if problem.is_goal(node.state) 
-    
-    successors = problem.actions(node.state).map{|action| child_node(problem,node,action)}
+    puts node.state.to_hash.inspect
+    @explored[node.state.to_hash] = true   # add state to explored
+    successors = problem.actions(node.state).map{|action| child_node(problem,node,action) }.find_all{|sucessor| @explored[sucessor.state.to_hash].nil? }
     return nil, infinity if successors.empty? # failure because no sucessors
     # update f with value from previous search, if any 
     successors.each do |sucessor| 
