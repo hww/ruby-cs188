@@ -164,24 +164,26 @@ class Search
   
   def rbfs_recursive(problem, node, f_limit) # returns a solution, or failure
     return solution(node) if problem.is_goal(node.state) 
+    
     successors = problem.actions(node.state).map{|action| child_node(problem,node,action)}
     return nil, infinity if successors.empty? # failure because no sucessors
     # update f with value from previous search, if any 
     successors.each do |sucessor| 
       s = sucessor.state
-      s.f = max(s.g + s.h, node.state.f)
+      sucessor.f = max(s.g + s.h, node.f)
     end
     while true do
       # sort sucessors
-      successors = successors.sort{|a,b| a.state.f<=>b.state.f }
+      successors = successors.sort{|a,b| a.f<=>b.f }
       # get first and second best values
       best, alternative = successors[0..1]
-      return nil, best.state.f if best.state.f>f_limit
+      # terminate if f-cost more limit or equal infinity
+      return nil, best.f if best.f>=f_limit
       # make new limit according to best second alternative
       # no resaosn expand more then second alternative
-      new_f_limit = alternative ? min(f_limit,alternative.state.f) : f_limit
+      new_f_limit = alternative ? min(f_limit,alternative.f) : f_limit
       # get result of expansion and update the best.f value
-      result, best.state.f = rbfs_recursive(problem, best, new_f_limit)
+      result, best.f = rbfs_recursive(problem, best, new_f_limit)
       return result unless result.nil?
     end
   end

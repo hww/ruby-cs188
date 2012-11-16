@@ -33,10 +33,10 @@ class Game
     
     # load layout
     #@map = Map["smallMaze.lay"]
-    @map = Map["tinySearch.lay"]
+    @map = Map["tinyCorners.lay"]
     @problem = CornersProblem.new(@map)
     @search = Search.new(@map)
-    @solution = @search.ucs(@problem)
+    @solution = @search.rbfs(@problem)
     puts "Solution size: #{@solution.size}"
     @player_state = @map.initial_state
     @speed = 20

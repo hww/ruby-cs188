@@ -30,7 +30,7 @@ class CornersProblem < ProblemBase
 
   # return all available actions
   def available_actions()
-    [:left, :up, :right, :down] 
+    return [:left, :up, :right, :down] 
   end
   
   # return next position if we will do action. ignore walls
