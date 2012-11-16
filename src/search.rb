@@ -94,7 +94,7 @@ class Search
   def solution(node)
     solution = []
     while (node)
-      solution.unshift(node.action)
+      solution.unshift(node.action) if node.action
       node = node.parent
     end
     return solution
@@ -200,14 +200,17 @@ class Search
 
   def rbfs(problem) # returns a solution, or failure return
     @explored = {}
-    rbfs_recursive(problem, Node.new(nil, nil, problem.initial_state), infinity)
+    result, tmp = rbfs_recursive(problem, Node.new(nil, nil, problem.initial_state), infinity)
+    puts result.inspect
+    return result
   end
   
   def rbfs_recursive(problem, node, f_limit) # returns a solution, or failure
-    return solution(node) if problem.is_goal(node.state) 
-    puts node.state.to_hash.inspect
+    return solution(node), node.f if problem.is_goal(node.state) 
     @explored[node.state.to_hash] = true   # add state to explored
-    successors = problem.actions(node.state).map{|action| child_node(problem,node,action) }.find_all{|sucessor| @explored[sucessor.state.to_hash].nil? }
+    successors = problem.actions(node.state).map{|action| child_node(problem,node,action) }
+    # next line needed to eliminate bunch of additional expansions
+    successors = successors.find_all{|sucessor| @explored[sucessor.state.to_hash].nil? }
     return nil, infinity if successors.empty? # failure because no sucessors
     # update f with value from previous search, if any 
     successors.each do |sucessor| 
@@ -220,18 +223,18 @@ class Search
       # get first and second best values
       best, alternative = successors[0..1]
       # terminate if f-cost more limit or equal infinity
-      return nil, best.f if best.f>=f_limit
+      return nil, best.f if best.f>f_limit or best.f==infinity
       # make new limit according to best second alternative
       # no resaosn expand more then second alternative
       new_f_limit = alternative ? min(f_limit,alternative.f) : f_limit
       # get result of expansion and update the best.f value
       result, best.f = rbfs_recursive(problem, best, new_f_limit)
-      return result unless result.nil?
+      return result, 0 unless result.nil?
     end
   end
   
   # make proper tail recurasion
-  tailcall_optimize :rbfs_recursive
+  #tailcall_optimize :rbfs_recursive
   
   
 end 
