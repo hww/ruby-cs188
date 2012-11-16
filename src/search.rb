@@ -2,14 +2,54 @@ require "./node"
 require "./problem_base"
 
 
+# =========================================
+# PROPER TAIL RECURSION 
+# =========================================
+#
+# Ruby doesn’t do tail call optimization. That sucks. However, 
+# quite a few month ago I managed to fake it:
+#  
+# use in your class as helper: 
+#
+#   class Foo
+#
+#      tailcall_optimize :your_function
+#
+#   end
+#
+# =========================================
+
+class Class
+  # Sweet stuff!
+  def tailcall_optimize( *methods )
+    methods.each do |meth|
+      org = instance_method( meth )
+      define_method( meth ) do |*args|
+        if Thread.current[ meth ]
+          throw( :recurse, args )
+        else
+          Thread.current[ meth ] = org.bind( self )
+          result = catch( :done ) do
+            loop do
+              args = catch( :recurse ) do
+                throw( :done, Thread.current[ meth ].call( *args ) )
+              end
+            end
+          end
+          Thread.current[ meth ] = nil
+          result
+        end
+      end
+    end
+  end
+end
 
 # =========================================
 # SEARCH ALGIRITM
 # =========================================
 
 class Search
-  
-  
+
   # =========================================
   # debugging 
   # =========================================
@@ -27,6 +67,7 @@ class Search
     x, y = state.x, state.y
     @expansions[y][x] = @expansion_time
     @expansion_time += 1
+    print @expansion_time.to_s + " "
   end
  
   def expansions
@@ -187,6 +228,9 @@ class Search
       return result unless result.nil?
     end
   end
+  
+  # make proper tail recurasion
+  tailcall_optimize :rbfs_recursive
   
   
 end 
