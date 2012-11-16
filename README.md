@@ -14,4 +14,22 @@ ucs() - Figure 3.14 Uniform-cost search on a graph. The algorithm is identical t
 rbfs() - Figure 3.26 The algorithm for recursive best-first search.
 		It has problems with the memory requirement (Ruby's stack owerflow). As result it handle small maps
 
+Layouts and Maps
+----------------
+
 The folder resources/layouts has layouts taken from cs188's Phyton code.
+
+How to run
+----------------
+
+> ruby game.rb
+
+Prerequirements
+----------------
+
+> gem install rubygame
+
+License
+----------------
+
+Use it for your own risk just refer to this page if it possible
