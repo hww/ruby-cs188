@@ -31,9 +31,46 @@ The folder resources/layouts has layouts taken from cs188's Phyton code.
 
 ## How to run 
 
+For the functions: bfs, dfs, ucs and rbfs just run game
+
 ```bash
 > ruby game.rb
 ```
+
+Check the game initialization code, you can change search function: bfs, dfs, ucs, rbfs
+
+For the alpha-beta pruning
+
+```bash
+> ruby ab_pruning.rb
+```
+
+Check code and setup your graph table
+
+```ruby
+def root 
+  @root ||= node(:max, :x1, 0, 
+    :a => node(:min, :x2, 0, :b => 8, :c => 6, :d => 7, :e => 5),
+    :f => node(:min, :x3, 0, 
+      :g => node(:max, :x4, 0, :h => 9, :i => 2),
+      :j => node(:max, :x5, 0, :k => 8, :l => 10, :m => 2),
+      :n => node(:max, :x6, 0, :o => 3, :p => 2,  :q => 4),
+      :r => node(:max, :x7, 0, :s => 0, :t => 5,  :u => 6)
+      )
+  )
+end
+```
+
+The function _node_ gets params: 
+
+* node type [:min|:max|value] 
+* state name
+* value of the node: _e_
+* list of arcs, where every arch is the key value pair
+	* key is the next state
+	* value is [node|value]
+
+There is also file qv_values.rb which has code for value evaluaion or q-value evaluation function
 
 ## License 
 
