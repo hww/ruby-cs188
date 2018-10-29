@@ -3,7 +3,7 @@ ruby-cs188
 
 Ruby version of algorithms from the BerkeleyX's CS188.1X Introduction to Artificial Intelligence course 
 
-I refereed to the book "Artificial Intelligence A Modern Approach" - Third Edition. My goal was make code which is looks as much more close to the pseudo-code definitions from this book.
+I referred to the book "Artificial Intelligence A Modern Approach" - Third Edition. My goal was make code which is looks as much more close to the pseudo-code definitions from this book.
 
 Look at the search.rb file:
 
@@ -13,13 +13,13 @@ Look at the search.rb file:
 		
 * **ucs()** - Figure 3.14 Uniform-cost search on a graph. The algorithm is identical to the general graph search algorithm in Figure 3.7, except for the use of a priority queue and the addition of an extra check in case a shorter path to a frontier state is discovered. The data structure for frontier needs to support efficient membership testing, so it should combine the capabilities of a priority queue and a hash table.
 
-* **rbfs()** - Figure 3.26 The algorithm for recursive best-first search. _It has problems with the memory requirement (Ruby's stack owerflow). As result it handle small maps._
+* **rbfs()** - Figure 3.26 The algorithm for recursive best-first search. _It has problems with the memory requirement (Ruby's stack overflow). As result it handle small maps._
 
 ## Layouts and Maps
 
-The folder resources/layouts has layouts taken from cs188's Phyton code.
+The folder resources/layouts has layouts taken from cs188's Python code.
 
-## Prerequirements 
+## Pre Requirements 
 
 ``` bash
 > gem install rubygame
@@ -66,7 +66,7 @@ The function _node_ gets params:
 	* key is the next state
 	* value is [node|value]
 
-There is also file qv_values.rb which has code for value evaluaion or q-value evaluation function
+There is also file qv_values.rb which has code for value evaluation or q-value evaluation function
 
 ## License 
 
