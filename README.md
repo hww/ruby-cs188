@@ -3,27 +3,23 @@ ruby-cs188
 
 Ruby version of algorithms from the BerkeleyX's CS188.1X Introduction to Artificial Intelligence course 
 
-I refereed to the book "Artificial Intelligence A Modern Approach" - Third Edition. My goal was make code which is looks as much more close to the pseudo-code definitions from this book.
+I referred to the book "Artificial Intelligence A Modern Approach" - Third Edition. My goal was to make code that looked similar to the pseudo-code definitions from this book.
 
-Look at the search.rb file:
+The search.rb file has implementations for these procedures:
 
-* bfs() - Figure 3.11 Breadth-first search on a graph.
+* **bfs()** - Figure 3.11 Breadth-first search on a graph.
 
-* dfs() - Figure 3.17 A recursive implementation of depth-limited tree search. 
+* **dfs()** - Figure 3.17 A recursive implementation of depth-limited tree search.  I found the book’s pseudocode strange. As result I used pseudo-code from bfs with small changes instead.
 		
-> I found this pseudo code strange. As result I used pseudo-code from bfs with small changes
-		
-* ucs() - Figure 3.14 Uniform-cost search on a graph. The algorithm is identical to the general graph search algorithm in Figure 3.7, except for the use of a priority queue and the addition of an extra check in case a shorter path to a frontier state is discovered. The data structure for frontier needs to support efficient membership testing, so it should combine the capabilities of a priority queue and a hash table.
+* **ucs()** - Figure 3.14 Uniform-cost search on a graph. The algorithm is identical to the general graph search algorithm in Figure 3.7, except for the use of a priority queue and the addition of an extra check in case a shorter path to a frontier state is discovered. The data structure for frontier needs to support efficient membership testing, so it should combine the capabilities of a priority queue and a hash table.
 
-* rbfs() - Figure 3.26 The algorithm for recursive best-first search.
-		 
-> It has problems with the memory requirement (Ruby's stack owerflow). As result it handle small maps
+* **rbfs()** - Figure 3.26 The algorithm for recursive best-first search.  It has problems with the memory requirement (Ruby's stack overflow). As result it handles only small maps.
 
 ## Layouts and Maps
 
-The folder resources/layouts has layouts taken from cs188's Phyton code.
+The folder resources/layouts has layouts taken from cs188's Python code.
 
-## Prerequirements 
+## Prerequisites 
 
 ``` bash
 > gem install rubygame
@@ -31,7 +27,7 @@ The folder resources/layouts has layouts taken from cs188's Phyton code.
 
 ## How to run 
 
-For the functions: bfs, dfs, ucs and rbfs just run game
+For the functions bfs, dfs, ucs and rbfs: just run game
 
 ```bash
 > ruby game.rb
@@ -39,13 +35,13 @@ For the functions: bfs, dfs, ucs and rbfs just run game
 
 Check the game initialization code, you can change search function: bfs, dfs, ucs, rbfs
 
-For the alpha-beta pruning
+For the alpha-beta pruning:
 
 ```bash
 > ruby ab_pruning.rb
 ```
 
-Check code and setup your graph table
+Check code and setup your graph table.
 
 ```ruby
 def root 
@@ -66,12 +62,12 @@ The function _node_ gets params:
 * node type [:min|:max|value] 
 * state name
 * value of the node: _e_
-* list of arcs, where every arch is the key value pair
+* list of arcs, where every arc is a key value pair
 	* key is the next state
 	* value is [node|value]
 
-There is also file qv_values.rb which has code for value evaluaion or q-value evaluation function
+The file qv_values.rb has code for value evaluation or q-value evaluation function.
 
 ## License 
 
-Use it for your own risk just refer to this page if it possible
+Use it at your own risk, just refer to this page if possible.
